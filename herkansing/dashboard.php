@@ -27,6 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
     exit;
 }
 
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit;
+}
+
 $result = $conn->query("SELECT * FROM photos WHERE user_id = $user_id");
 ?>
 
@@ -38,6 +44,7 @@ $result = $conn->query("SELECT * FROM photos WHERE user_id = $user_id");
 </head>
 <body>
     <h1>Your Photos</h1>
+    <a href="dashboard.php?logout=true" class="logout-button">Logout</a>
     <form method="POST" enctype="multipart/form-data">
         <input type="text" name="title" required placeholder="Title">
         <textarea name="description" placeholder="Description"></textarea>

@@ -26,12 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<form method="POST">
-    <input type="text" name="username" required placeholder="Username">
-    <input type="password" name="password" required placeholder="Password">
-    <button type="submit">Login</button>
-</form>
+    <form method="POST">
+        <h2>Login</h2>
+        <input type="text" name="username" required placeholder="Username">
+        <input type="password" name="password" required placeholder="Password">
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a href="register.php">Register here</a></p>
+    </form>
 </body>
 </html>
