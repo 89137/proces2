@@ -22,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
     $stmt = $conn->prepare("INSERT INTO photos (user_id, title, description, path, is_public) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("isssi", $user_id, $title, $description, $target_file, $is_public);
     $stmt->execute();
+
+    header("Location: dashboard.php");
+    exit;
 }
 
 $result = $conn->query("SELECT * FROM photos WHERE user_id = $user_id");
@@ -31,27 +34,32 @@ $result = $conn->query("SELECT * FROM photos WHERE user_id = $user_id");
 <html>
 <head>
     <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h1>Your Photos</h1>
-<form method="POST" enctype="multipart/form-data">
-    <input type="text" name="title" required placeholder="Title">
-    <textarea name="description" placeholder="Description"></textarea>
-    <input type="file" name="photo" required>
-    <label>
-        <input type="checkbox" name="is_public"> Make public
-    </label>
-    <button type="submit">Upload</button>
-</form>
+    <h1>Your Photos</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" required placeholder="Title">
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="file" name="photo" required>
+        <label>
+            <input type="checkbox" name="is_public"> Make public
+        </label>
+        <button type="submit">Upload</button>
+    </form>
 
-<h2>Your Uploaded Photos</h2>
-<?php while ($row = $result->fetch_assoc()): ?>
-    <div>
-        <img src="<?php echo $row['path']; ?>" width="100">
-        <p><?php echo $row['title']; ?></p>
-        <p><?php echo $row['description']; ?></p>
-        <p><?php echo $row['is_public'] ? 'Public' : 'Private'; ?></p>
+    <h2>Your Uploaded Photos</h2>
+    <div class="photo-grid">
+    <?php while ($row = $result->fetch_assoc()): ?>
+        <div class="photo-item">
+            <img src="<?php echo $row['path']; ?>" alt="<?php echo $row['title']; ?>">
+            <div class="photo-info">
+                <h3><?php echo $row['title']; ?></h3>
+                <p><?php echo $row['description']; ?></p>
+                <p><?php echo $row['is_public'] ? 'Public' : 'Private'; ?></p>
+            </div>
+        </div>
+    <?php endwhile; ?>
     </div>
-<?php endwhile; ?>
 </body>
 </html>

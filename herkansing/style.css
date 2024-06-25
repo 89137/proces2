@@ -3,6 +3,11 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
+    color: #333;
+}
+
+h1, h2 {
+    color: #007bff;
 }
 
 form {
@@ -34,15 +39,20 @@ button:hover {
     background: #0056b3;
 }
 
-img {
-    max-width: 100px;
+.photo-item {
+    background: #fff;
+    padding: 10px;
     margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-    margin-top: 0;
+.photo-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 
-div {
-    margin-bottom: 20px;
+.photo-item p {
+    margin: 5px 0;
 }
